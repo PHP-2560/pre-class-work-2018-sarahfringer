@@ -6,6 +6,6 @@ This folder will be where you complete your pre-class each week. The first time 
 Before you continue, Edit this document with:
 
 
-- Preferred Name: ___________Sarah_________________
-- Brown Name: ____Sarah Fringer_______________
+- Preferred Name: ___________Sarah
+- Brown Name: ____Sarah Fringer
 - Brown E-mail: ___sarah_fringer@brown.edu___________________
