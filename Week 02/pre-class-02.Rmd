@@ -62,7 +62,7 @@ sd(exp.draws.10)
 hist(exp.draws.1)
 ```
     b. Use `plot()` with this vector to display the random values from your standard distribution in order.
-  
+    
 ```{r}
 plot(exp.draws.1)
 ```
