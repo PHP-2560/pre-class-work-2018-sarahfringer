@@ -21,7 +21,7 @@ The exponential distribution is defined by its cumulative distribution function
 The R function ***rexp()*** generates random variables with an exponential distribution. For example 
 <center><strong>rexp(n=10, rate=5)</strong> </center>
 
-````{r,message=F, warning=F}
+```{r,message=F, warning=F}
 a <- rexp(n=10, rate=5)
 a
 ```
