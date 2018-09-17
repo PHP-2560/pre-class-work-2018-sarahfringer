@@ -76,10 +76,34 @@ plot(exp.draws.10, exp.draws.5)
 
 4. We'd now like to compare the properties of each of our vectors. Begin by creating a vector of the means of each of our five distributions in the order we created them and saving this to a variable name of your choice. Using this and other similar vectors, create the following scatterplots and explain in words what is going on:
     a. The five means versus the five rates used to generate the distribution.
+    
+      * In this plot we can see that as the rate increases, the mean value of           each distribution decreases. This would makes sense when looking at the         values in our stored vectors for each distribution. For example, the            values in the distribution with a rate of 10 are much lower than the            values for the distribution with a rate of 0.2. 
+      
     b. The standard deviations versus the rates.
+    
+      * In this plot we can see that as the rate increases, the standard                deviation value of each distribution decreases. This would makes sense          when looking at the values in our stored vectors for each distribution.         For example, we can see by looking at our stored vectors that the               variance between each value in the distribution withrate 10 is much             smaller than the variance between the values in the 0.2 rate                    distribution. 
+      
     c. The means versus the standard deviations.
+    
+      * In this plot we can see a linear relationship between the mean and              standard deviation of each distribution. This plot shows that the mean          value and the standard deviation value are very similar for each                distribution, providing a linear relationship. 
 
 For each plot, explain in words what's going on.
+
+```{r}
+means <- c(1.022332, 4.36612, 0.2235881, 0.1447165, 0.08822352)
+rates <- c(1, 0.2, 5, 7.3, 10)
+sds <- c(1.098161, 4.739664, 0.2313931, 0.1431271, 0.0828559)
+```
+
+```{r}
+library(ggplot2)
+library(gridExtra)
+library(stargazer)
+plot1 <- qplot(means, rates)
+plot2 <- qplot(sds, rates)
+plot3 <- qplot(means, sds)
+grid.arrange(plot1, plot2, plot3, ncol=3, nrow=1)
+```
 
 ### Part II (PHP 2560 Only)
 
