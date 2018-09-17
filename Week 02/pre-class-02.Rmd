@@ -1,4 +1,7 @@
 # pre-class
+###*Sarah Fringer*
+
+####*September 17th, 2018*
 
 ```{r setup, include = FALSE, cache = FALSE}
 library(knitr)
@@ -13,7 +16,7 @@ knitr::opts_chunk$set(cache=F)
 
 Make sure you commit this often with meaningfull messages. 
 
-### Background
+#### Background
 
 The exponential distribution is defined by its cumulative distribution function
 \(F(x) = 1-e^{-\lambda x}\)
@@ -33,7 +36,6 @@ then this results in 10 exponentially distributed numbers with a rate \(\lambda=
 
 ```{r}
 exp.draws.1 <- rexp(n=200)
-exp.draws.1
 mean(exp.draws.1)
 sd(exp.draws.1) 
 ```
@@ -78,15 +80,15 @@ plot(exp.draws.10, exp.draws.5)
 4. We'd now like to compare the properties of each of our vectors. Begin by creating a vector of the means of each of our five distributions in the order we created them and saving this to a variable name of your choice. Using this and other similar vectors, create the following scatterplots and explain in words what is going on:
     a. The five means versus the five rates used to generate the distribution.
     
-      * In this plot we can see that as the rate increases, the mean value of           each distribution decreases. This would makes sense when looking at the         values in our stored vectors for each distribution. For example, the            values in the distribution with a rate of 10 are much lower than the            values for the distribution with a rate of 0.2. 
+      * In this plot we can see that as the rate increases, the mean value of each distribution decreases. This would makes sense when looking at the values in our stored vectors for each distribution. For example, the values in the distribution with a rate of 10 are much lower than the values for the distribution with a rate of 0.2. 
       
     b. The standard deviations versus the rates.
     
-      * In this plot we can see that as the rate increases, the standard                deviation value of each distribution decreases. This would makes sense          when looking at the values in our stored vectors for each distribution.         For example, we can see by looking at our stored vectors that the               variance between each value in the distribution withrate 10 is much             smaller than the variance between the values in the 0.2 rate                    distribution. 
+      * In this plot we can see that as the rate increases, the standard                deviation value of each distribution decreases. This would makes sense when looking at the values in our stored vectors for each distribution. For example, we can see by looking at our stored vectors that the variance between each value in the distribution withrate 10 is much smaller than the variance between the values in the 0.2 rate distribution. 
       
     c. The means versus the standard deviations.
     
-      * In this plot we can see a linear relationship between the mean and              standard deviation of each distribution. This plot shows that the mean          value and the standard deviation value are very similar for each                distribution, providing a linear relationship. 
+      * In this plot we can see a linear relationship between the mean and standard deviation of each distribution. This plot shows that the mean value and the standard deviation value are very similar for each distribution, providing a linear relationship. 
 
 For each plot, explain in words what's going on.
 
@@ -123,6 +125,7 @@ sd(big.exp.draws.1)
 ```{r}
 hist(big.exp.draws.1)
 ```
+
  * Yes, this histogram matches the exponential function \(1-e^{-x}\). This makes sense because n is a very large number, 1.1 million, and as the sample size increases the histogram becomes more and more similar to the shape of the underlying/parent exponential distribution. 
  
   c. Find the mean of all of the entries in `big.exp.draws.1` which are strictly greater than 1. You may need to first create a new vector to identify which elements satisfy this.
@@ -140,7 +143,7 @@ big.exp.draws.1.mat <- matrix(data = big.exp.draws.1, nrow = 1100, ncol = 1000, 
 histbigexp <- hist(big.exp.draws.1.mat)
 ```
   
-  * The data looks very similar to the histogram made above when just plotting the vector of big.exp.draws.1. The only difference if only big.exp.draws.1.mat is a matrix, whereas big.exp.draws.1 is a vector. Not only do the two histograms look similar to each other, but they also both look simiilar to the histogram of the function \(1-e^{-x}\). 
+  * The data looks very similar to the histogram made above when just plotting the vector of big.exp.draws.1. The only difference is only big.exp.draws.1.mat is a matrix, whereas big.exp.draws.1 is a vector. Not only do the two histograms look similar to each other, but they also both look simiilar to the histogram of the function \(1-e^{-x}\). 
 
 
   e. Calculate the mean of the 371st column of `big.exp.draws.1.mat`.
