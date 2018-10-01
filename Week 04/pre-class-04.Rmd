@@ -1,5 +1,5 @@
 # pre-class
-
+# Sarah Fringer
 
 Make sure you commit this often with meaningful messages. 
 
@@ -10,13 +10,47 @@ Make sure you commit this often with meaningful messages.
 
 Using a loop, print the integers from 1 to 50. 
 
+```{r}
+for (i in 1:50) {
+  print(i)
+}
+```
+
+
 ### Question 2:
 
 A.  Using a loop, add all the integers between 0 and 1000.
 
+```{r}
+j <- 0
+for (i in 0:1000) {
+  j <- j + i
+}
+
+j
+```
+
+
 B. Now, add all the EVEN integers between 0 and 1000 (hint: use seq())
 
+```{r}
+j <- 0
+
+for(i in seq(0, 1000, 2)) {
+  j <- j + i
+}
+
+j
+```
+
+
 C. Now, repeat A and B WITHOUT using a loop.
+
+```{r}
+sum(0:1000)
+sum(seq(0, 1000, 2))
+```
+
 
 ### Question 3:
 
