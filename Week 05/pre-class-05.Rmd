@@ -115,8 +115,8 @@ for (i in 1:ncol(WCGS.new)) {
 
 ```{r}
 for (i in 1:ncol(WCGS.new)) {
-  m1[i] <- round(mean(WCGS.new[,i]))
-  sd1[i] <- sd(WCGS.new[,i])
+  m1 <- round(mean(WCGS.new[,i]))
+  sd1 <- sd(WCGS.new[,i])
 }
 m1
 sd1
@@ -126,5 +126,34 @@ sd1
 ### Question 2: Looping to Calculate
 
 A. Using a loop, calculate the mean weight of the subjects separated by the type of CHD they have.
+
+```{r}
+df <- data.frame("chd" = unique(wcgs$chd69), "mean_weight" = NA, stringsAsFactors = F)
+df
+for(i in 1:nrow(df)) {
+ chd1 <- df$chd[i]
+ mean_weight1 <- mean(subset(wcgs, chd69 == chd1)$weight)
+ df$mean_weight[i] <- mean_weight1
+}
+df
+```
+
+
 B. Now do the same thing, but now don’t use a loop
+
+```{r}
+group_by(wcgs, chd69) %>% summarise(mean = mean(weight))
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
