@@ -52,6 +52,6 @@ vapply(df, sd, numeric(1))
 ```
 
 ```{r}
-vapply(cars[vapply(cars, is.numeric, logical(1))], sd, numeric(1))
+vapply(df[vapply(df, is.numeric, logical(1))], sd, numeric(1))
 ```
 
