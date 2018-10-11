@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 1. Read the source code for each of the following three functions, puzzle out what they do, and then brainstorm better names.
 
-```
+```{r}
 f1 <- function(string, prefix) {
   substr(string, 1, nchar(prefix)) == prefix
 }
@@ -25,11 +25,33 @@ f3 <- function(x, y) {
 }
 ```
 
+* f1 takes in a string and a prefix. This function tests whether each element of the character vector begin with the prefix inputted. For example, if my string was ("dec", "sefe", "secc") and my inputted prefix was "se", but function would return FALSE, TRUE, TRUE, since the last two elements in my string begin with "se". A better name for this function would be equal_prefix(). 
+
+* f2 takes in one input, x which can be a vector or value. If this vector has one or less than one element, the function returns NULL. Otherwise, the function will remove the last value of the vector inputted. A better name for this function would be remove_last().
+
+* f3 takes in two inputs, x and y. This function will replicate the first vector inputted as many times as the length of the second vector inputted. For example, if x <- c(1,2,3) and y <- (2,4), x will only be replicated 1 and the first two elements of x will be return --> (1,2). A better name for this function would be replace_input(). 
+ 
 2. Compare and contrast rnorm() and MASS::mvrnorm(). How could you make them more consistent?
+
+* rnorm() is the density, distribution function, quantile function and random generation for the normal distribution with mean equal to mean and standard deviation equal to sd. MASS::mvrnorm() produces one or more samples from the specified multivariate normal distribution. Therefore, the biggest difference between these two is that rnorm() deals with the normal distribution and MASS::mvrnorm() deals with the multivariate normal distribution. In addition, rnorm has input values of n, mean, and sd, while MASS::mvrnorm() has n, mu, and sigma. You could make these two functions more consistent by giving them the same name. 
 
 
 3. Use `lapply()` and an anonymous function to find the coefficient of variation (the standard deviation divided by the mean) for all columns in the mtcars dataset. 
 
+```{r}
+lapply(mtcars, function(x) sd(x)/mean(x))
+```
+
+
 4. Use vapply() to:
     a. Compute the standard deviation of every column in a numeric data frame.
     b. Compute the standard deviation of every numeric column in a mixed data frame. (Hint: you’ll need to use vapply() twice.)
+    
+```{r}
+vapply(df, sd, numeric(1))
+```
+
+```{r}
+vapply(cars[vapply(cars, is.numeric, logical(1))], sd, numeric(1))
+```
+
