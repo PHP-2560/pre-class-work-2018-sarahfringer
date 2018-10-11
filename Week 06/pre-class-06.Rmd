@@ -21,7 +21,7 @@ f2 <- function(x) {
   x[-length(x)]
 }
 f3 <- function(x, y) {
-  rep(y, length.out = length(x))
+  rep(y, length.out = length(x)) 
 }
 ```
 
