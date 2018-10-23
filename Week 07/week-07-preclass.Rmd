@@ -31,10 +31,124 @@ With this project we will simulate a famoues probability problem. This will not 
 
  1. **Gambler's Ruin**: Suppose you have a bankroll of $1000 and make bets of $100 on a fair game. By simulating the outcome directly for at most 5000 iterations of the game (or hands), estimate:
     a. the probability that you have "busted" (lost all your money) by the time you have placed your one hundredth bet. 
-    b. the probability that you have busted by the time you have placed your five hundredth bet by simulating the outcome directly. 
-    c. the mean time you go bust, given that you go bust within the first 5000 hands.
-    d. the mean and variance of your bankroll after 100 hands (including busts).
-    e. the mean and variance of your bankroll after 500 hands (including busts).
+    
+```{r}
+gambler_ruin <- function(p, bet, bankroll) {
+  count_hands <- 0
+  while (bet > 0) {
+    if (rbinom(1, 1, p) == 1) {
+      bankroll <- bankroll + bet
+      bet = (bankroll + bet) * 0.1
+    } else {
+      bankroll <- bankroll - bet
+    }
+    count_hands <- count_hands + 1
+    if (bankroll < bet) {
+      break
+    } 
+  }
+    return(count_hands)
+}
+
+hands <- numeric()
+for (i in 1:5000) {
+  count_hands <- gambler_ruin(0.5, 100, 900)
+  hands <- c(hands, count_hands)
+  }
+```
+  
+  
+```{r}
+bust_100 <- length(which(hands <= 100))/length(hands)
+bust_100
+```
+  
+  b. the probability that you have busted by the time you have placed your five hundredth bet by simulating the outcome directly. 
+  
+```{r}
+bust_500 <- length(which(hands <= 500))/length(hands)
+bust_500
+```
+  
+  c. the mean time you go bust, given that you go bust within the first 5000 hands.
+  
+```{r}
+mean_bust_500 <- mean(hands[which(hands <= 5000)])
+mean_bust_500
+```
+  
+  d. the mean and variance of your bankroll after 100 hands (including busts).
+
+```{r}
+set.seed(1)
+gambler_ruin_100_hands <- function(p, bet, bankroll) {
+  count_hands <- 0
+  while (bet > 0) {
+    if (rbinom(1, 1, p) == 1) {
+      bankroll <- bankroll + bet
+      bet = (bankroll + bet) * 0.1
+    } else {
+      bankroll <- bankroll - bet
+    }
+    count_hands <- count_hands + 1
+    if (bankroll < bet) {
+      break
+    } 
+    if (count_hands == 100) {
+      break
+    }
+  }
+    return(bankroll)
+}
+
+hands100 <- numeric()
+for (i in 1:5000) {
+  count_hands_100 <- gambler_ruin_100_hands(0.5, 100, 900)
+  hands100 <- c(hands100, count_hands_100)
+  }
+```
+
+```{r}
+mean(hands100)
+var(hands100)
+```
+
+  
+  e. the mean and variance of your bankroll after 500 hands (including busts).
+  
+```{r}
+set.seed(1)
+gambler_ruin_500_hands <- function(p, bet, bankroll) {
+  count_hands <- 0
+  while (bet > 0) {
+    if (rbinom(1, 1, p) == 1) {
+      bankroll <- bankroll + bet
+      bet = (bankroll + bet) * 0.1
+    } else {
+      bankroll <- bankroll - bet
+    }
+    count_hands <- count_hands + 1
+    if (bankroll < bet) {
+      break
+    } 
+    if (count_hands == 500) {
+      break
+    }
+  }
+    return(bankroll)
+}
+
+hands500 <- numeric()
+for (i in 1:5000) {
+  count_hands_500 <- gambler_ruin_500_hands(0.5, 100, 900)
+  hands500 <- c(hands500, count_hands_500)
+  }
+```
+  
+```{r}
+mean(hands500)
+var(hands500)
+```  
  
 Note: you *must* stop playing if your player has gone bust. How will you handle this in the `for` loop?
 
