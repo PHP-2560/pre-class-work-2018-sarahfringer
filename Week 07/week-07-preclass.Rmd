@@ -154,5 +154,98 @@ Note: you *must* stop playing if your player has gone bust. How will you handle 
 
 2. **Markov Chains**. Suppose you have a game where the probability of winning on your first hand is 48%; each time you win, that probability goes up by one percentage point for the next game (to a maximum of 100%, where it must stay), and each time you lose, it goes back down to 48%. Assume you cannot go bust and that the size of your wager is a constant $100.
     a. Is this a fair game? Simulate one hundred thousand sequential hands to determine the size of your return. Then repeat this simulation 99 more times to get a range of values to calculate the expectation.
-    b. Repeat this process but change the starting probability to a new value within 2% either way. Get the expected return after 100 repetitions. Keep exploring until you have a return value that is as fair as you can make it. Can you do this automatically?
-    c. Repeat again, keeping the initial probability at 48%, but this time change the probability increment to a value different from 1%. Get the expected return after 100 repetitions. Keep changing this value until you have a return value that is as fair as you can make it. 
+    
+```{r}
+markov_chain <- function(p, bet, bankroll) {
+  count_hands <- 0
+  prob <- p
+  while (bet > 0) {
+    p_val <- runif(1)
+    if (p_val <= p) {
+      bankroll <- bankroll + bet
+      p = p + 0.01
+    } else {
+      bankroll <- bankroll - bet
+      p <- prob 
+    }
+    count_hands <- count_hands + 1
+    if (count_hands == 100000) {
+      break
+    }
+    if (bankroll < bet) {
+      break
+    } 
+  }
+    return(bankroll)
+}
+
+return_size <- numeric()
+for (i in 1:100) {
+  count_hands_MC <- markov_chain(0.48, 100, 900)
+  return_size <- c(return_size, count_hands_MC)
+}
+```
+
+```{r}
+mean(return_size)
+```
+* This is not a fair game since the mean of the return size is 0.
+    
+  b. Repeat this process but change the starting probability to a new value within 2% either way. Get the expected return after 100 repetitions. Keep exploring until you have a return value that is as fair as you can make it. Can you do this automatically?
+
+```{r}
+proportion=numeric()
+for (j in 1:20){
+  return_size2=numeric()
+for(i in 1:100) {
+  count_hands_MC2 = markov_chain(0.46+0.002*j, 100, 900)
+  return_size2 = c(return_size2,count_hands_MC2)
+}
+  nextproportion=length(which(return_size2==0))/100
+  proportion=c(proportion,nextproportion)
+}
+proportion
+```
+
+* The most fair expected return value is when the probability = 0.70
+
+   c. Repeat again, keeping the initial probability at 48%, but this time change the probability increment to a value different from 1%. Get the expected return after 100 repetitions. Keep changing this value until you have a return value that is as fair as you can make it. 
+    
+```{r}
+markov_chain2 <- function(p, p_increment, bet, bankroll) {
+  count_hands <- 0
+  prob <- p
+  while (bet > 0) {
+    p_val <- runif(1)
+    if (p_val <= p) {
+      bankroll <- bankroll + bet
+      p = p + p_increment
+    } else {
+      bankroll <- bankroll - bet
+      p <- prob 
+    }
+    count_hands <- count_hands + 1
+    if (count_hands == 100000) {
+      break
+    }
+    if (bankroll < bet) {
+      break
+    } 
+  }
+    return(bankroll)
+}
+proportion = numeric()
+for (z in 1:20){
+return_size3 = numeric()
+for(i in 1:100) {
+  count_hands_MC3 = markov_chain2(0.48,0.002*z, 100, 900)
+  return_size3 = c(return_size3,count_hands_MC3)
+}
+nextproportion=length(which(return_size3==0))/100
+proportion=c(proportion,nextproportion)
+}
+proportion
+```
+
+* The most fair expected return value is when the probability = 0.44
+    
