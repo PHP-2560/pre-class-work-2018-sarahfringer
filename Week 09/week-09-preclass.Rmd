@@ -58,13 +58,54 @@ df[,2]
 
 5. Extract the table “What’s Moving” (top middle of the web page) into a data-frame.
 
-
+```{r}
+whats_moving <- html_nodes(webpage, xpath = '//*[@id="wsod_marketMoversContainer"]/table')
+whats_moving1 <- html_table(whats_moving)
+df <- data.frame(whats_moving1)
+df
+```
 
 6. Re-construct all of the links from the first column of the “What’s Moving” table.
 Hint: the base URL is “https://money.cnn.com”
+
+```{r}
+paste0("https://money.cnn.com", html_attr(html_nodes(webpage, "td .wsod_symbol"), "href"))
+```
+
+
 7. Extract the titles under the “Latest News” section (bottom middle of the web page.)
-8. To understand the structure of the data in a web page, it is often useful to know what the underlying attributes are of the text you see.
-Extract the attributes (and their values) of the HTML element that holds the timestamp underneath the “What’s Moving” table.
+
+```{r}
+latest_news <- html_nodes(webpage, ".HeadlineList a")
+latest_news1 <- html_text(latest_news)
+latest_news1
+```
+
+
+8. To understand the structure of the data in a web page, it is often useful to know what the underlying attributes are of the text you see. Extract the attributes (and their values) of the HTML element that holds the timestamp underneath the “What’s Moving” table.
+
+```{r}
+webpage %>% 
+  html_nodes(".wsod_disclaimer > span") %>% 
+  html_attrs() %>% .[[1]]
+```
+
+
+
 9. Extract the values of the blue percentage-bars from the “Trending Tickers” table (bottom right of the web page.)
 Hint: in this case, the values are stored under the “class” attribute.
+
+```{r}
+webpage %>% 
+  html_nodes(".scale div") %>% 
+  html_attr("class")
+```
+
 10. Get the links of all of the “svg” images on the web page.
+
+```{r}
+webpage %>% 
+  html_nodes("img[src$='svg']") %>% 
+  html_attr("src")
+```
+
